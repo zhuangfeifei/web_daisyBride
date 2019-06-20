@@ -1,0 +1,1 @@
+let imgUrl = 'https://www.zjwl.shop'

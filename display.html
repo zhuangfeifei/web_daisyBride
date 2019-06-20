@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>黛西新娘网站 - 精品展示</title>
+    <!-- Custom Theme files -->
+    <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/percircle.css">
+    <link rel="stylesheet" href="css/lightbox.css"> <!-- lightbox css -->
+
+
+    <!-- <link rel="stylesheet" href="./css/base.css"> -->
+    <link rel="stylesheet" href="./css/display.css">
+    <script src="./js/api.js"></script>
+    <script src="./js/flexible.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+</head>
+<body>
+
+    <!-- banner -->
+    <div class="w3ls-banner">
+        <div class="header-nav">
+            <!-- header-three -->
+            <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                菜单
+                </button>
+            </div>
+            <!-- top-nav -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <img src="./images/index/logo.png" alt="" class="onimgs">
+                <ul class="nav navbar-nav">
+                <li><a href="index.html" class="scroll">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
+                <li><a href="index.html" class="scroll">黛西服务</a></li>
+                <li><a href="index.html" class="scroll_display">关于黛西</a></li>
+                <li><a href="./display.html" class="active">精品展示</a></li>
+                <li class="scrolls"><a href="#contact_us" class="scroll">联系我们</a></li>
+                </ul>
+            </div>
+            </nav>
+        </div>
+    </div>
+
+
+    <nav id="display_nav"><img id="nav_img" src="./images/logo.png" alt="" srcset=""></nav>
+
+    <div id="display">
+        <h3 class="display_h3"><img src="./images/display.png" alt="" srcset="">网站首页/精品展示/服装</h3>
+        <div id="displayList">
+            
+        </div>
+    </div>
+
+    <!-- 微信搜一搜 -->
+    <div class="wichat_l">
+        <img src="./images/index/xiaochengxuma.png" alt="">
+    </div>
+    <!-- 备案 -->
+    <div class="wichat_copy">苏ICP备19012600号-1</div>
+
+    <div class="go_tops" id="go_tops">
+        <img src="./images/index/go_top.png" alt="" onclick="topFunction()">
+    </div>
+
+</body>
+<script>
+
+    $(document).ready(()=>{
+
+        $.ajax({
+            url: imgUrl + '/daisy/api/boutique/categoryBoutique',
+            method:'post',
+            data:{limit: 100, current: 1},
+            headers:{
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            success: res=>{
+                console.log(res)
+                for(let i in res.data){
+                    let item = res.data[i]
+                    let div = `
+                        <div class="displayList_ displayList_${i}">
+                            <img src="${imgUrl}/dx/gallery/${item.thumbnail_pic}" alt="" srcset="">
+                            <div class="active">
+                                <h4>${item.goods_name}</h4>
+                                <div class="solid">
+                                    <p>${item.description.split('；')[0]}</p>
+                                    <p>${item.description.split('；')[1]}</p>
+                                    <p>${item.description.split('；')[2]}</p>
+                                </div>
+                                <div class="details" data-id="${item.id}">
+                                    <img src="./images/chakan.png" alt="" srcset="">
+                                    快速查看
+                                </div>
+                            </div>
+                        </div>
+                    `
+                    $('#displayList').append(div)
+                    $('.displayList_'+i+'').mouseover(function(){
+                        $(this).find('.active').addClass('show')
+                    }).mouseout(function(){
+                        $(this).find('.active').removeClass('show')
+                    })
+                }
+                $('.details').on('click', function(){
+                    console.log($(this)[0].dataset.id)
+                    window.location.href = './displayDetails.html?id=' + $(this)[0].dataset.id
+                })
+            }
+        })
+
+        
+    })
+    // 点击按钮，返回顶部
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+
+
+</script>
+</html>

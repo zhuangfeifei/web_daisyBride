@@ -1,0 +1,111 @@
+#display_nav{
+    width: 100%; height: 9rem; display: flex; align-items: center; justify-content: center;
+    background: url(../images/banner2.png) no-repeat; background-size: cover;
+}
+#nav_img{
+    width: 9.5rem; height: 2.23rem;
+}
+
+
+
+
+#display{
+    width: 13.08rem; margin: 0 auto; margin-top: 0.84rem; padding-bottom: 0.6rem;
+}
+.display_h3{
+    font-size: 0.4rem; font-family:SourceHanSansCN-Medium; font-weight:500; color: #666666; 
+    display: flex; align-items: center;
+}
+.display_h3 img{
+    width: 0.54rem; height: 0.54rem; margin-right: 0.39rem;
+}
+
+#displayList{
+    width: 100%; display: flex; flex-wrap: wrap; margin-top: 0.43rem;
+}
+.displayList_{
+    width: 3.07rem; height: 4.6rem;margin-right: 0.2rem; margin-bottom: 0.2rem; position: relative;
+}
+#displayList .displayList_ img{
+    width: 100%; height: 100%;
+}
+.active{
+    width: 100%; height: 100%; position: absolute; top: 0; left: 0; background:rgba(0,0,0,0.7); display: none;
+    color: white; text-align: center; font-size: 0.24rem; line-height: 0.6rem; padding-top: 0.45rem; box-sizing: border-box;
+    /* -webkit-animation:dong 0.3s linear 0s 1 alternate;
+    animation:dong 0.3s linear 0s 1 alternate; */
+}
+.show{display: block!important;}
+.active h4{
+    font-size: 0.3rem; font-family:SourceHanSansCN-Medium; font-weight:500;
+}
+.active .solid{
+    width: 2rem; border-top: 0.02rem solid white; margin: 0 auto; margin-top: 0.2rem; padding-top: 0.25rem;
+}
+.active .details{
+    width: 2.4rem; height: 0.56rem; margin: 0 auto; background-color: #B1BFC6; margin-top: 0.55rem;
+    display: flex; justify-content: center; align-items: center; cursor:pointer;
+}
+.active .details img{
+    width: 0.27rem!important; height: 0.15rem!important; margin-right: 0.1rem;
+}
+
+
+
+
+@keyframes dong{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+/*-- 微信 --*/
+
+.wichat_l {
+	width: 100%;
+	height: 281px;
+	background: rgba(177, 191, 198, 1);
+	text-align: center;
+}
+
+.wichat_l img {
+	width: 782px;
+	height: 224px;
+	margin-top: 27px;
+}
+
+/*-- 备案--*/
+
+.wichat_copy {
+	width: 100%;
+	height: 60px;
+	background: rgba(90, 97, 100, 1);
+	text-align: center;
+	line-height: 60px;
+	font-size: 20px;
+	font-family: SourceHanSansCN-Regular;
+	font-weight: bold;
+	color: rgba(255, 255, 255, 1);
+	letter-spacing: 1px;
+}
+/*-- 返回顶部--*/
+.go_tops{
+	width: 60px;
+	height: 60px;
+	position: fixed;
+	z-index: 555;
+	bottom: 30px;
+	right: 20px;
+}
+.go_tops img{
+	width: 60px;
+	height: 60px；
+}

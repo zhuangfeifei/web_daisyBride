@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>黛西新娘网站 - 精品展示 - 商品详情</title>
+    <!-- Custom Theme files -->
+    <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="css/percircle.css">
+    <link rel="stylesheet" href="css/lightbox.css"> <!-- lightbox css -->
+
+
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/displayDetails.css">
+    <script src="./js/api.js"></script>
+    <script src="./js/flexible.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+
+    <!-- banner -->
+    <div class="w3ls-banner">
+        <div class="header-nav">
+            <!-- header-three -->
+            <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                菜单
+                </button>
+            </div>
+            <!-- top-nav -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <img src="./images/index/logo.png" alt="" class="onimgs">
+                <ul class="nav navbar-nav">
+                <li><a href="index.html" class="scroll">首&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
+                <li><a href="index.html" class="scroll">黛西服务</a></li>
+                <li><a href="index.html" class="scroll_display">关于黛西</a></li>
+                <li><a href="./display.html" class="active">精品展示</a></li>
+                <li class="scrolls"><a href="#contact_us" class="scroll">联系我们</a></li>
+                </ul>
+            </div>
+            </nav>
+        </div>
+    </div>
+
+    <nav id="display_nav"><img id="nav_img" src="./images/logo.png" alt="" srcset=""></nav>
+
+    <div id="displayDetails">
+        <h3 class="displayDetails_h3"><img src="./images/display.png" alt="" srcset="">网站首页/精品展示/服装/商品详情</h3>
+        <div class="displayDetails_">
+            <div class="displayDetails_left">
+                <div class="displayDetails_left_img"></div>
+                <div class="displayDetails_left_list"></div>
+            </div>
+            <div class="displayDetails_right">
+                <div class="displayDetails_right_top">
+                    
+                </div>
+                <div class="contact">
+                    <div><input type="text" name='username' placeholder="姓名"></div>
+                    <div><input type="text" name='userphones' placeholder="电话号码"></div>
+                    <div><input type="text" name='usertime' placeholder="预约时间"></div>
+                    <div><input type="text" name='userwork' placeholder="预约事项（加盟，试纱，集团业务，其他业务）"></div>
+                    <div id="appointment" class="on_submit">立即预约</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 微信搜一搜 -->
+    <div class="wichat_l">
+        <img src="./images/index/xiaochengxuma.png" alt="">
+    </div>
+    <!-- 备案 -->
+    <div class="wichat_copy">苏ICP备19012600号-1</div>
+
+    <div class="go_tops" id="go_tops">
+        <img src="./images/index/go_top.png" alt="" onclick="topFunction()">
+    </div>
+
+</body>
+<script>
+
+    $(document).ready(()=>{
+
+        $.ajax({
+            url: imgUrl + '/daisy/api/boutique/clothDetail',
+            method:'post',
+            data:{clothId: GetRequest().id},
+            headers:{
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            success: res=>{
+                console.log(res)
+                let imgTitle = `<img src="${imgUrl}/dx/gallery/${res.data.thumbnail_pic}" alt="" srcset="">`
+                $('.displayDetails_left_img').append(imgTitle)
+                let top = `
+                    <h1>${res.data.goods_name}</h1>
+                    <p>${res.data.description}</p>
+                    <div>
+                        在2019年春季，黛西新娘以浪漫的蓬蓬裙体现了一个唯美的爱情故事。这款标志性款式采用大面积的手工装饰，薄纱半袖以及精致的裙摆，更好的呈现公主的感觉。
+                    </div>
+                `
+                $('.displayDetails_right_top').append(top)
+                for(let item of res.data.goods_pic.split(',')){
+                    let imgList = `<img src="${imgUrl}/dx/gallery/${item}" alt="" srcset="">`
+                    $('.displayDetails_left_list').append(imgList)
+                }
+            }
+        })
+
+        function GetRequest() {
+            var url = location.search;
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+
+    })
+
+
+        // 点击按钮，返回顶部
+function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+
+
+$(".on_submit").click(function () {
+		var name = $("input[name='username']").val();
+		var phones = $("input[name='userphones']").val();
+		var time = $("input[name='usertime']").val();
+		var work = $("input[name='userwork']").val();
+		// var phone = $.trim($('#buyer_phone').val());
+		let reg = /^1[0-9]{10}$/
+		if(name==""||name==null){
+			alert("姓名不能为空");
+			return false
+		}else if(phones==''||phones==null){
+			alert("手机号码不能为空");
+			return false;
+		}else if(!reg.test(phones)){
+			alert("手机号码有误！");
+			return false;
+		}
+		else if(time==""||time==null){
+			alert("预约时间不能为空");
+			return false
+		}else if(work==""||work==null){
+			alert("预约事项不能为空");
+			return false
+		}
+		if(name&&phones&&time&&work){
+			$.ajax({
+				url: "https://www.zjwl.shop/daisy/api/website/addAppoint",
+				headers: { "Content-type": "application/x-www-form-urlencoded; charset=utf-8" },
+				type: "post",
+				data: {
+					realname: name,
+					phone: phones,
+					ordertime: time,
+					content: work
+				},
+				success: function (result) {
+					if (result.code == 200) {
+						alert("预约成功");
+						window.location.reload();
+					}
+				}
+			});
+		}
+	});
+
+
+</script>
+</html>
